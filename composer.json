@@ -1,0 +1,17 @@
+{
+    "name": "human-incubator/all-payment-helper",
+    "description": "An all payment library that can be used for ease access of allPayment actions.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "HumanIncubator\\AllPaymentHelper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JM Mac",
+            "email": "johnmarkmancol@gmail.com"
+        }
+    ],
+    "require": {}
+}
