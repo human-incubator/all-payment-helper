@@ -11,7 +11,7 @@ Class AllPayment {
 
     public static function create_invoice($amount, $callback_url = '', $order_id = '') {
 
-        $invoice = new Invoice(self::all_payment_url, self::client_api_key);
+        $invoice = new Invoice(self::$all_payment_url, self::$client_api_key);
         $invoice->amount = (float) $amount;
         $invoice->client_invoice_id = $order_id;
         $invoice->callback_url = $callback_url;
@@ -24,7 +24,7 @@ Class AllPayment {
     }
 
     public static function cancel($id, $by_invoice = true) {
-        $payment = new Payment(self::all_payment_url, self::client_api_key);
+        $payment = new Payment(self::$all_payment_url, self::$client_api_key);
 
         if ($by_invoice) {
             return $payment->cancel($id);
