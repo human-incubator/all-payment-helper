@@ -10,7 +10,7 @@ Class AllPayment {
     static $all_payment_url;
     static $client_api_key;
 
-    private function init() {
+    private static function init() {
         self::$all_payment_url = Config::get('services.allpayment.api_url');
         self::$client_api_key = Config::get('services.allpayment.token');
     }
