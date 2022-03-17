@@ -11,8 +11,8 @@ Class AllPayment {
     static $client_api_key;
 
     private static function init() {
-        self::$all_payment_url = Config::get('services.allpayment.api_url');
-        self::$client_api_key = Config::get('services.allpayment.token');
+        self::$all_payment_url = Config::get('allpayment.api_url');
+        self::$client_api_key = Config::get('allpayment.token');
     }
 
     public static function create_invoice($amount, $callback_url = '', $order_id = '') {
