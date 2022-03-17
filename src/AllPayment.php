@@ -9,7 +9,7 @@ Class AllPayment {
     public $all_payment_url = 'http://127.0.0.1:8000';
     private $client_api_key = 'testkey123';
 
-    public function create_invoice($amount, $callback_url = '', $order_id = '') {
+    public static function create_invoice($amount, $callback_url = '', $order_id = '') {
 
         $invoice = new Invoice($this->all_payment_url, $this->client_api_key);
         $invoice->amount = (float) $amount;
@@ -23,7 +23,7 @@ Class AllPayment {
         // No function yet
     }
 
-    public function cancel($id, $by_invoice = true) {
+    public static function cancel($id, $by_invoice = true) {
         $payment = new Payment($this->all_payment_url, $this->client_api_key);
 
         if ($by_invoice) {
