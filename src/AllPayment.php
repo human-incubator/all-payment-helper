@@ -10,12 +10,13 @@ Class AllPayment {
     static $all_payment_url;
     static $client_api_key;
 
-    public function __construct() {
+    private function init() {
         self::$all_payment_url = Config::get('services.allpayment.api_url');
         self::$client_api_key = Config::get('services.allpayment.token');
     }
 
     public static function create_invoice($amount, $callback_url = '', $order_id = '') {
+        $this->init();
 
         $invoice = new Invoice(self::$all_payment_url, self::$client_api_key);
         $invoice->amount = (float) $amount;
@@ -30,6 +31,7 @@ Class AllPayment {
     }
 
     public static function cancel($id, $by_invoice = true) {
+        $this->init();
         $payment = new Payment(self::$all_payment_url, self::$client_api_key);
 
         if ($by_invoice) {
