@@ -8,6 +8,16 @@
             "HumanIncubator\\AllPaymentHelper\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HumanIncubator\\AllPaymentHelper\\AllpaymentServiceProvider"
+            ],
+            "aliases": {
+                "Allpayment": "HumanIncubator\\AllPaymentHelper\\Facade"
+            }
+        }
+    },
     "authors": [
         {
             "name": "JM Mac",
