@@ -2,6 +2,7 @@
     "name": "human-incubator/all-payment-helper",
     "description": "An all payment library that can be used for ease access of allPayment actions.",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "HumanIncubator\\AllPaymentHelper\\": "src/"
@@ -10,7 +11,7 @@
     "authors": [
         {
             "name": "JM Mac",
-            "email": "johnmarkmancol@gmail.com"
+            "email": "johnmark@hiro-c.net"
         }
     ],
     "require": {}
