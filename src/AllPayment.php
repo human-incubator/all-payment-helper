@@ -15,12 +15,14 @@ Class AllPayment {
         self::$client_api_key = Config::get('allpayment.token');
     }
 
-    public static function create_invoice($amount, $callback_url = '', $order_id = '') {
+    public static function create_invoice($amount, $callback_url = '', $customer_name = "", $particulars="", $order_id = '') {
         self::init();
 
         $invoice = new Invoice(self::$all_payment_url, self::$client_api_key);
         $invoice->amount = (float) $amount;
         $invoice->client_invoice_id = $order_id;
+        $invoice->customer_name = $customer_name;
+        $invoice->particulars = $particulars;
         $invoice->callback_url = $callback_url;
 
         return $invoice->create();

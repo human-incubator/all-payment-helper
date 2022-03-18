@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Http;
 
 Class Invoice {
     public $amount;
+    public $customer_name;
+    public $particulars;
     public $callback_url;
     public $client_invoice_id;
     
@@ -18,20 +20,30 @@ Class Invoice {
     }
 
     public function create() {
-        $response = Http::withToken($this->client_api_key)->post("{$this->all_payment_url}/invoices", [
-            'amount'            => (float) $this->amount,
-            'client_invoice_id' => $this->client_invoice_id,
-            'callback_url'      => $this->callback_url,
-        ]);
-        
-        if ($response->failed()) {
+        try {
+            $response = Http::withToken($this->client_api_key)->post("{$this->all_payment_url}/invoices", [
+                'amount'            => (float) $this->amount,
+                'customer_name'     => $this->customer_name,
+                'particulars'       => $this->particulars,
+                'client_invoice_id' => $this->client_invoice_id,
+                'callback_url'      => $this->callback_url,
+            ]);
+            
+            if ($response->failed()) {
+                return [
+                    'error' => true,
+                    'status' => $response->status(),
+                    'message' => json_decode($response->body())
+                ];
+            } else {
+                return json_decode($response);
+            }
+        } catch (\Throwable $th) {
             return [
                 'error' => true,
-                'status' => $response->status(),
-                'message' => $response->body()
+                'status' => 500,
+                'message' => ['code' => $th->getCode(), 'message'=> $th->getMessage()]
             ];
-        } else {
-            return json_decode($response);
         }
     }
 }
