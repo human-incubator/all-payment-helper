@@ -28,6 +28,22 @@ Class AllPayment {
         return $invoice->create();
     }
 
+    public static function create_reoccurring_invoice($amount, $cycle_type, $cycle_count, $callback_url = '', $customer_name = "", $particulars="", $order_id = '') {
+        self::init();
+
+        $invoice = new Invoice(self::$all_payment_url, self::$client_api_key);
+        $invoice->amount = (float) $amount;
+        $invoice->client_invoice_id = $order_id;
+        $invoice->customer_name = $customer_name;
+        $invoice->particulars = $particulars;
+        $invoice->callback_url = $callback_url;
+
+        $invoice->cycle_type = $cycle_type;
+        $invoice->cycle_count = $cycle_count;
+
+        return $invoice->create();
+    }
+
     public function pay() {
         // No function yet
     }

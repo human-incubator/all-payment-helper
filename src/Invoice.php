@@ -10,6 +10,8 @@ Class Invoice {
     public $particulars;
     public $callback_url;
     public $client_invoice_id;
+    public $cycle_type;
+    public $cycle_count;
     
     private $all_payment_url;
     private $client_api_key;
@@ -21,13 +23,22 @@ Class Invoice {
 
     public function create() {
         try {
-            $response = Http::withToken($this->client_api_key)->post("{$this->all_payment_url}/invoices", [
+            $params = [
                 'amount'            => (float) $this->amount,
                 'customer_name'     => $this->customer_name,
                 'particulars'       => $this->particulars,
                 'client_invoice_id' => $this->client_invoice_id,
                 'callback_url'      => $this->callback_url,
-            ]);
+            ];
+
+            if ($this->$cycle_type && $this->cycle_count) {
+                array_push($params, [
+                    'cycle_type' => $this->cycle_type,
+                    'cycle_count' => $this->cycle_count,
+                ]);
+            }
+
+            $response = Http::withToken($this->client_api_key)->post("{$this->all_payment_url}/invoices", $params);
             
             if ($response->failed()) {
                 return [
